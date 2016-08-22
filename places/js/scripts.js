@@ -18,17 +18,21 @@ var placeArray = [belize, paris, bali, dublin, newzealand];
 var valueArray = ["location", "country", "language", "population", "timeOfYear", "landmarks"];
 var buttonTags = [];
 
-
-
+function resetFields() {
+    $("input#new-place").val("");
+    $("input#new-country").val("");
+    $("input#new-language").val("");
+    $("input#new-population").val("");
+    $("input#new-timeOfYear").val("");
+    $("input#new-landmarks").val("");
+}
 
 // Front End Logic
 $(document).ready(function() {
   $('form').submit(function(event) {
     event.preventDefault();
-    console.log('test');
+
     var userPlace = $("input#new-place").val();
-    console.log($('input#new-place').val());
-    console.log(userPlace);
     var userCountry = $('input#new-country').val();
     var userLanguage = $('input#new-language').val();
     var userPopulation = $('input#new-population').val();
@@ -47,11 +51,13 @@ $(document).ready(function() {
       });
 
     placeArray.push(newPlace);
+    resetFields();
   });
+
   function addPlace(place) {
       var div = document.createElement('div');
       div.className = 'favplace btn-group';
-      div.innerHTML = '<button class="placeSelect btn btn-primary btn-inline"' + 'id="' + (place.replace(/\s+/g, '')).toLowerCase() + '">' + place + '</button>';
+      div.innerHTML = '<button class="placeSelect btn btn-success btn-inline"' + 'id="' + (place.replace(/\s+/g, '')).toLowerCase() + '">' + place + '</button>';
 
       document.getElementById('placeButtons').appendChild(div);
   }
@@ -60,7 +66,6 @@ $(document).ready(function() {
     $("#placeButtons").append(addPlace(placeArray[i].location));
   }
 
-
   $(".placeSelect").click(function() {
     $("#placeInfo").empty();
     for (var i = 0; i < valueArray.length; i++) {
@@ -68,7 +73,4 @@ $(document).ready(function() {
     }
     $(".information").show();
   });
-
-
-
 });
